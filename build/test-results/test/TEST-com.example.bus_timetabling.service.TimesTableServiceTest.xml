@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.bus_timetabling.service.TimesTableServiceTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2024-10-15T18:11:19" hostname="Chriss-MBP" time="1.541">
+  <properties/>
+  <testcase name="updateTimesTable_NotFound()" classname="com.example.bus_timetabling.service.TimesTableServiceTest" time="1.446"/>
+  <testcase name="getTimesTableById_NotFound()" classname="com.example.bus_timetabling.service.TimesTableServiceTest" time="0.01"/>
+  <testcase name="createTimesTable()" classname="com.example.bus_timetabling.service.TimesTableServiceTest" time="0.009"/>
+  <testcase name="getTimesTableById()" classname="com.example.bus_timetabling.service.TimesTableServiceTest" time="0.005"/>
+  <testcase name="getAllTimesTables()" classname="com.example.bus_timetabling.service.TimesTableServiceTest" time="0.01"/>
+  <testcase name="deleteTimesTable()" classname="com.example.bus_timetabling.service.TimesTableServiceTest" time="0.009"/>
+  <testcase name="getTimesTablesByBusId()" classname="com.example.bus_timetabling.service.TimesTableServiceTest" time="0.01"/>
+  <testcase name="updateTimesTable()" classname="com.example.bus_timetabling.service.TimesTableServiceTest" time="0.009"/>
+  <testcase name="deleteTimesTable_NotFound()" classname="com.example.bus_timetabling.service.TimesTableServiceTest" time="0.007"/>
+  <testcase name="getTimesTablesByStopId()" classname="com.example.bus_timetabling.service.TimesTableServiceTest" time="0.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
