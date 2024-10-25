@@ -9,6 +9,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import DepartureBoardIcon from '@mui/icons-material/DepartureBoard';
 import IconButton from '@mui/material/IconButton';
+import axios from 'axios';
 
 export default function Search() {
   const busNumbers = ['Q22', 'M94', 'S53', 'Bx7', 'B42'];
@@ -88,34 +89,15 @@ export default function Search() {
     }
   };
 
-  // Once the api is working it'll be added here.
-  // const fetchTimetableData = (stopId) => {
-  //   fetch(`http://localhost:8080/api/timetable/${stopId}`)
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         setTimetableData(data);
-  //       })
-  //       .catch((error) => {
-  //         console.error('Error fetching timetable data:', error);
-  //       });
-  // };
-
-
-  const fetchTimetableData = (stopId) => {
-    // Dummy data
-    const dummyTimetableData = {
-      busNumber: selectedBus,
-      departure: '5:00 PM',
-      arrival: '5:15 PM',
-      fromStopName: busStops[selectedBus].find(stop => stop.id === stopId).name,
-      toStopName: 'Destination Stop',
-      segment: 'Main Line'
-    };
-
-    // Simulate an API call delay
-    setTimeout(() => {
-      setTimetableData(dummyTimetableData);
-    }, 1000);
+  const fetchTimetableData = () => {
+    axios.get('http://localhost:8080/api/buses')
+        .then((response) => {
+          console.log('Fetched timetable data:', response.data);
+          setTimetableData(response.data);
+        })
+        .catch((error) => {
+          console.error('Error fetching timetable data:', error);
+        });
   };
 
   return (
