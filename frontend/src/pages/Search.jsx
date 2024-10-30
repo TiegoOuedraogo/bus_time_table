@@ -12,6 +12,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { Box } from "@mui/material";
+import Zoom from '@mui/material/Zoom';
 
 const MTABusApp = () => {
     const [buses, setBuses] = useState([]);
@@ -67,6 +68,8 @@ const MTABusApp = () => {
 
             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', marginBottom: '1rem' }}>
                 <Autocomplete
+                    autoSelect
+                    blurOnSelect
                     disablePortal
                     options={buses}
                     getOptionLabel={(option) => `${option.busNumber} (${option.status})`}
@@ -78,7 +81,7 @@ const MTABusApp = () => {
                             <Typography
                                 component="span"
                                 sx={{
-                                    color: option.status === 'INSERVICE' ? 'green' : 'red',
+                                    color: option.status === 'INSERVICE' ? ' #79b176' : '#d3494eed',
                                     display: 'flex',
                                     justifyContent: 'space-between',
                                     width: '100%'
@@ -117,30 +120,32 @@ const MTABusApp = () => {
                     </Card>
                 </div>
                 {selectedStop && (
-                    <div style={{ flex: 1, overflowY: 'auto', marginLeft: '1rem' }}>
-                        <Card>
-                            <CardContent>
-                                <Typography variant="h6">Next Bus Arrivals</Typography>
-                                {nextBusArrivals.length > 0 ? (
-                                    <List>
-                                        {nextBusArrivals.map((arrival, index) => (
-                                            <ListItem
-                                                key={`${arrival.busNumber}-${index}`}
-                                                component="div"
-                                            >
-                                                <ListItemText
-                                                    primary={`Bus ${arrival.busNumber} arriving in ${index + 1} ${index === 0 ? 'minute' : 'minutes'}`}
-                                                    secondary={arrival.arrivalTime}
-                                                />
-                                            </ListItem>
-                                        ))}
-                                    </List>
-                                ) : (
-                                    <Typography variant="body1">No upcoming bus arrivals for this stop.</Typography>
-                                )}
-                            </CardContent>
-                        </Card>
-                    </div>
+                    <Zoom in={selectedStop !== null} style={{ transitionDelay: selectedStop ? '300ms' : '0ms' }}>
+                        <div style={{ flex: 1, overflowY: 'auto', marginLeft: '1rem' }}>
+                            <Card>
+                                <CardContent>
+                                    <Typography variant="h6">Next Bus Arrivals</Typography>
+                                    {nextBusArrivals.length > 0 ? (
+                                        <List>
+                                            {nextBusArrivals.map((arrival, index) => (
+                                                <ListItem
+                                                    key={`${arrival.busNumber}-${index}`}
+                                                    component="div"
+                                                >
+                                                    <ListItemText
+                                                        primary={`Bus ${arrival.busNumber} arriving in ${index + 1} ${index === 0 ? 'minute' : 'minutes'}`}
+                                                        secondary={arrival.arrivalTime}
+                                                    />
+                                                </ListItem>
+                                            ))}
+                                        </List>
+                                    ) : (
+                                        <Typography variant="body1">No upcoming bus arrivals for this stop.</Typography>
+                                    )}
+                                </CardContent>
+                            </Card>
+                        </div>
+                    </Zoom>
                 )}
             </div>
         </div>
