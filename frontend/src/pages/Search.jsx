@@ -12,6 +12,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { Box } from "@mui/material";
+import Zoom from '@mui/material/Zoom';
 
 const MTABusApp = () => {
     const [buses, setBuses] = useState([]);
@@ -70,6 +71,8 @@ const MTABusApp = () => {
 
             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', marginBottom: '1rem' }}>
                 <Autocomplete
+                    autoSelect
+                    blurOnSelect
                     disablePortal
                     options={buses}
                     getOptionLabel={(option) => `${option.busNumber} (${option.status})`}
@@ -81,7 +84,7 @@ const MTABusApp = () => {
                             <Typography
                                 component="span"
                                 sx={{
-                                    color: option.status === 'INSERVICE' ? 'green' : 'red',
+                                    color: option.status === 'INSERVICE' ? ' #79b176' : '#d3494eed',
                                     display: 'flex',
                                     justifyContent: 'space-between',
                                     width: '100%'
