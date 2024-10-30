@@ -11,9 +11,11 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import { Box } from "@mui/material";
+import { Box, Grow } from "@mui/material";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import Slide from '@mui/material/Slide';
+
 const MTABusApp = () => {
     const [buses, setBuses] = useState([]);
     const [selectedBus, setSelectedBus] = useState(null);
@@ -119,15 +121,23 @@ const MTABusApp = () => {
                             {stops.length > 0 ? (
                                 <List>
                                     {stops.map((stop) => (
-                                        <ListItem
+                                        <Grow 
+                                            in={true} 
+                                            mountOnEnter 
+                                            unmountOnExit 
                                             key={stop.id}
-                                            component="div"
-                                            onClick={() => handleStopSelect(stop)}
-                                            selected={selectedStop === stop}
-                                            sx={{ cursor: 'pointer' }}
+                                            style={{ transitionDelay: `${stops.indexOf(stop) * 100}ms` }}
                                         >
-                                            <ListItemText primary={stop.stopName} />
-                                        </ListItem>
+                                            <ListItem
+                                                
+                                                component="div"
+                                                onClick={() => handleStopSelect(stop)}
+                                                selected={selectedStop === stop}
+                                                sx={{ cursor: 'pointer' }}
+                                            >
+                                                <ListItemText primary={stop.stopName} />
+                                            </ListItem>
+                                        </Grow>
                                     ))}
                                 </List>
                             ) : (
@@ -144,15 +154,24 @@ const MTABusApp = () => {
                                 {nextBusArrivals.length > 0 ? (
                                     <List>
                                         {nextBusArrivals.map((arrival, index) => (
-                                            <ListItem
+                                            <Slide 
+                                                direction="left" 
+                                                in={true} 
+                                                mountOnEnter 
+                                                unmountOnExit 
                                                 key={`${arrival.busNumber}-${index}`}
-                                                component="div"
+                                                style={{ transitionDelay: `${index * 300}ms` }}
                                             >
-                                                <ListItemText
-                                                    primary={`Bus ${arrival.busNumber} arriving in ${index + 1} ${index === 0 ? 'minute' : 'minutes'}`}
-                                                    secondary={arrival.arrivalTime}
-                                                />
-                                            </ListItem>
+                                                <ListItem
+                                                    
+                                                    component="div"
+                                                >
+                                                    <ListItemText
+                                                        primary={`${arrival.busNumber} arriving in ${index + 1} ${index === 0 ? 'minute' : 'minutes'}`}
+                                                        secondary={arrival.arrivalTime}
+                                                    />
+                                                </ListItem>
+                                            </Slide>
                                         ))}
                                     </List>
                                 ) : (
