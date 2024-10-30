@@ -21,7 +21,8 @@
     "react-dom": "^18.3.1",
     "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.27.0",
-    "sweetalert2": "^11.14.4"
+    "sweetalert2": "^11.14.4",
+    "sweetalert2-react-content": "^5.0.7"
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
@@ -33,6 +34,7 @@
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.12",
     "globals": "^15.9.0",
+    "sass-embedded": "^1.80.5",
     "vite": "^5.4.8"
   },
   "packageManager": "pnpm@9.12.1+sha512.e5a7e52a4183a02d5931057f7a0dbff9d5e9ce3161e33fa68ae392125b79282a8a8a470a51dfc8a0ed86221442eb2fb57019b0990ed24fab519bf0e1bc5ccfc4"

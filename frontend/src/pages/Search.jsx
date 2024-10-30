@@ -12,15 +12,15 @@ import ListItemText from '@mui/material/ListItemText';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { Box } from "@mui/material";
-import Zoom from '@mui/material/Zoom';
-
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 const MTABusApp = () => {
     const [buses, setBuses] = useState([]);
     const [selectedBus, setSelectedBus] = useState(null);
     const [stops, setStops] = useState([]);
     const [selectedStop, setSelectedStop] = useState(null);
     const [nextBusArrivals, setNextBusArrivals] = useState([]);
-
+    const swal = withReactContent(Swal);
     useEffect(() => {
         fetch('http://localhost:8080/api/buses')
             .then(response => response.json())
@@ -42,6 +42,19 @@ const MTABusApp = () => {
                 .then(data => {
                     console.log('Next bus arrivals:', data);
                     setNextBusArrivals(data);
+                    return data;
+                })
+                .then(data => {
+                    if (data.length === 0) {
+                        swal.fire({
+                            title: 'No buses found',
+                            text: 'Please select another stop.',
+                            icon: 'error',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true  
+                        })
+                    }
                 })
         }
     }, [selectedStop]);
@@ -142,7 +155,9 @@ const MTABusApp = () => {
                                         ))}
                                     </List>
                                 ) : (
-                                    <Typography variant="body1">No upcoming bus arrivals for this stop.</Typography>
+                                    <Typography variant="body1">No upcoming bus arrivals for this stop.
+                                    </Typography>
+                                    
                                 )}
                             </CardContent>
                         </Card>
