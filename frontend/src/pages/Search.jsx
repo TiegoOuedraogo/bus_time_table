@@ -108,6 +108,7 @@ const MTABusApp = () => {
                                             component="div"
                                             onClick={() => handleStopSelect(stop)}
                                             selected={selectedStop === stop}
+                                            sx={{ cursor: 'pointer' }}
                                         >
                                             <ListItemText primary={stop.stopName} />
                                         </ListItem>
@@ -123,7 +124,7 @@ const MTABusApp = () => {
                     <div style={{ flex: 1, overflowY: 'auto', marginLeft: '1rem' }}>
                         <Card>
                             <CardContent>
-                                <Typography variant="h6">Next Buses Arrivals</Typography>
+                                <Typography variant="h6">Next Buses Arrival Time</Typography>
                                 {nextBusArrivals.length > 0 ? (
                                     <List>
                                         {nextBusArrivals.map((arrival, index) => (
