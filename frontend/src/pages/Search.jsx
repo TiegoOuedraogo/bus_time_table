@@ -36,9 +36,12 @@ const MTABusApp = () => {
 
     useEffect(() => {
         if (selectedStop) {
-            fetch(`http://localhost:8080/api/timetables/next-bus/${selectedStop.id}`)
+            fetch(`http://localhost:8080/api/timetables/buses/${selectedStop.id}`)
                 .then(response => response.json())
-                .then(data => setNextBusArrivals(data));
+                .then(data => {
+                    console.log('Next bus arrivals:', data);
+                    setNextBusArrivals(data);
+                })
         }
     }, [selectedStop]);
 
@@ -120,7 +123,7 @@ const MTABusApp = () => {
                     <div style={{ flex: 1, overflowY: 'auto', marginLeft: '1rem' }}>
                         <Card>
                             <CardContent>
-                                <Typography variant="h6">Next Bus Arrivals</Typography>
+                                <Typography variant="h6">Next Buses Arrivals</Typography>
                                 {nextBusArrivals.length > 0 ? (
                                     <List>
                                         {nextBusArrivals.map((arrival, index) => (
