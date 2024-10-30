@@ -37,9 +37,12 @@ const MTABusApp = () => {
 
     useEffect(() => {
         if (selectedStop) {
-            fetch(`http://localhost:8080/api/timetables/next-bus/${selectedStop.id}`)
+            fetch(`http://localhost:8080/api/timetables/buses/${selectedStop.id}`)
                 .then(response => response.json())
-                .then(data => setNextBusArrivals(data));
+                .then(data => {
+                    console.log('Next bus arrivals:', data);
+                    setNextBusArrivals(data);
+                })
         }
     }, [selectedStop]);
 
@@ -120,32 +123,30 @@ const MTABusApp = () => {
                     </Card>
                 </div>
                 {selectedStop && (
-                    <Zoom in={selectedStop !== null} style={{ transitionDelay: selectedStop ? '300ms' : '0ms' }}>
-                        <div style={{ flex: 1, overflowY: 'auto', marginLeft: '1rem' }}>
-                            <Card>
-                                <CardContent>
-                                    <Typography variant="h6">Next Bus Arrivals</Typography>
-                                    {nextBusArrivals.length > 0 ? (
-                                        <List>
-                                            {nextBusArrivals.map((arrival, index) => (
-                                                <ListItem
-                                                    key={`${arrival.busNumber}-${index}`}
-                                                    component="div"
-                                                >
-                                                    <ListItemText
-                                                        primary={`Bus ${arrival.busNumber} arriving in ${index + 1} ${index === 0 ? 'minute' : 'minutes'}`}
-                                                        secondary={arrival.arrivalTime}
-                                                    />
-                                                </ListItem>
-                                            ))}
-                                        </List>
-                                    ) : (
-                                        <Typography variant="body1">No upcoming bus arrivals for this stop.</Typography>
-                                    )}
-                                </CardContent>
-                            </Card>
-                        </div>
-                    </Zoom>
+                    <div style={{ flex: 1, overflowY: 'auto', marginLeft: '1rem' }}>
+                        <Card>
+                            <CardContent>
+                                <Typography variant="h6">Next Buses Arrivals</Typography>
+                                {nextBusArrivals.length > 0 ? (
+                                    <List>
+                                        {nextBusArrivals.map((arrival, index) => (
+                                            <ListItem
+                                                key={`${arrival.busNumber}-${index}`}
+                                                component="div"
+                                            >
+                                                <ListItemText
+                                                    primary={`Bus ${arrival.busNumber} arriving in ${index + 1} ${index === 0 ? 'minute' : 'minutes'}`}
+                                                    secondary={arrival.arrivalTime}
+                                                />
+                                            </ListItem>
+                                        ))}
+                                    </List>
+                                ) : (
+                                    <Typography variant="body1">No upcoming bus arrivals for this stop.</Typography>
+                                )}
+                            </CardContent>
+                        </Card>
+                    </div>
                 )}
             </div>
         </div>
