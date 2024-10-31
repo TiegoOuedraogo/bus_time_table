@@ -16,8 +16,8 @@ const Between = () => {
   const stops = [1,2,3,4,5,6,7,8,9,10];
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.get(`http://localhost:8080/api/timetables/buses/betweenstops?stopX={stopX}&stopY={stopY}`)
-      .then(response => {
+    axios.get(`http://localhost:8080/api/timetables/buses/betweenstops?stopX=${stopX}&stopY=${stopY}`)
+        .then(response => {
         console.log(response.data);
       })
       .catch(error => {
