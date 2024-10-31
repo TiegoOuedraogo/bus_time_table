@@ -20,7 +20,7 @@ const TimeTable = () => {
                 <Table>
                     <TableHead>
                         <TableRow sx={{ backgroundColor: "#f0f0f0" }}>
-                            <TableCell>Stop Number</TableCell>
+                            <TableCell>Bus Number</TableCell>
                             <TableCell>Arrival Time</TableCell>
                             <TableCell>Departure Time</TableCell>
                         </TableRow>
@@ -29,7 +29,7 @@ const TimeTable = () => {
                         {timetable.length > 0 ? (
                             timetable.map((entry, index) => (
                                 <TableRow key={entry.id} hover>
-                                    <TableCell>{entry.stopId}</TableCell>
+                                    <TableCell>{entry.busId}</TableCell>
                                     <TableCell>{entry.arrival}</TableCell>
                                     <TableCell>{entry.departure}</TableCell>
                                 </TableRow>
