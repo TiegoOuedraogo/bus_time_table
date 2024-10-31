@@ -2,16 +2,12 @@ import { useState, useEffect } from "react";
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Typography from '@mui/material/Typography';
-import DepartureBoardIcon from '@mui/icons-material/DepartureBoard';
-import IconButton from '@mui/material/IconButton';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import { Box, Grow } from "@mui/material";
+import { Grow } from "@mui/material";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import Slide from '@mui/material/Slide';
@@ -52,8 +48,8 @@ const MTABusApp = () => {
                 })
                 .then(data => {
                     if (data && Array.isArray(data.stops)) {
-                        console.log("Fetched stops:", data.stops);  // Log stops array
-                        setStops(data.stops);  // Set stops from nested array
+                        console.log("Fetched stops:", data.stops);
+                        setStops(data.stops);
                     } else {
                         console.error("Unexpected response format:", data);
                         setStops([]);
@@ -105,7 +101,7 @@ const MTABusApp = () => {
 
     const handleBusSelect = (event, value) => {
         setSelectedBus(value);
-        console.log("Selected bus:", value);  // Log selected bus for debugging
+        console.log("Selected bus:", value);
     };
 
     const handleStopSelect = (stop) => {
@@ -114,20 +110,6 @@ const MTABusApp = () => {
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <Box sx={{ flexGrow: 1 }}>
-                <AppBar position="static" sx={{ background: 'black', marginBottom: '1rem' }}>
-                    <Toolbar>
-                        <IconButton size="large" edge="start" color="inherit" aria-label="menu">
-                            <DepartureBoardIcon sx={{ margin: 0 }} />
-                        </IconButton>
-                        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                            MTA Bus App
-                        </Typography>
-                        <Link to="/between"><Button variant="text" sx={{ color: 'white' }} >between</Button></Link>
-                    </Toolbar>
-                </AppBar>
-            </Box>
-
             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', marginBottom: '1rem' }}>
                 <Autocomplete
                     autoSelect
@@ -143,7 +125,7 @@ const MTABusApp = () => {
                             <Typography
                                 component="span"
                                 sx={{
-                                    color: option.status === 'INSERVICE' ? '#79b176' : '#d3494eed',
+                                    color: '#2E2E2E',
                                     display: 'flex',
                                     justifyContent: 'space-between',
                                     width: '100%'
