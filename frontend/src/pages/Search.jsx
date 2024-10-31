@@ -15,6 +15,10 @@ import { Box, Grow } from "@mui/material";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import Slide from '@mui/material/Slide';
+import Button from '@mui/material/Button';
+import { Link } from "react-router-dom";
+
+
 
 const MTABusApp = () => {
     const [buses, setBuses] = useState([]);
@@ -80,6 +84,7 @@ const MTABusApp = () => {
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                             MTA Bus App
                         </Typography>
+                        <Link to="/between"><Button variant="text" sx={{ color: 'white' }} >between</Button></Link>
                     </Toolbar>
                 </AppBar>
             </Box>
