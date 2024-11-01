@@ -7,21 +7,31 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import FormGroup from '@mui/material/FormGroup';
+import Zoom from '@mui/material/Zoom';
+import withReactContent from 'sweetalert2-react-content';
+import Swal from 'sweetalert2';
 import axios from 'axios';
 
 
 const Between = () => {
   const [stopX, setStopX ]= useState(0);
   const [stopY, setStopY ]= useState(0);
+  const [time, setTime ]= useState('');
   const stops = [1,2,3,4,5,6,7,8,9,10];
+  const swal = withReactContent(Swal);
   const handleSubmit = (e) => {
     e.preventDefault();
     axios.get(`http://localhost:8080/api/timetables/buses/betweenstops?stopX=${stopX}&stopY=${stopY}`)
         .then(response => {
-        console.log(response.data);
+        setTime(response.data);
       })
       .catch(error => {
-        console.error(error);
+        swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'An error occurred while fetching data',
+          confirmButtonText: 'OK'
+        })
     })
   }
   const handleStopx = (stop) => {
@@ -32,7 +42,6 @@ const Between = () => {
   };
   return(
     <div sx={{ display: 'flex', justifyContent: 'center', marginTop: '1rem'}}>
-      <Link to="/"><Button variant="text" sx={{ color: 'black' }} > &lt; Back</Button></Link>
       <form onSubmit={handleSubmit}>
         <FormGroup >
           <FormControl sx={{ m: '2rem' }}>
@@ -70,6 +79,11 @@ const Between = () => {
           <Button type="submit" variant="outlined" color="inherit" sx={{ m: '2rem' }}>Submit</Button>
         </FormGroup>
       </form>
+      {time &&
+        <Zoom in={true} sx={{transitionDelay: '300ms'}} mountOnEnter  unmountOnExit>
+          <h2>{time}</h2>
+        </Zoom>
+      }
     </div>
   );
 };
