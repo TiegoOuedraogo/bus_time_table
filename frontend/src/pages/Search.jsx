@@ -52,6 +52,7 @@ const MTABusApp = () => {
         fetch('http://localhost:8080/api/buses')
             .then(response => response.json())
             .then(data => setBuses(data));
+        console.log("Fetched buses:", buses);
     }, []);
 
     useEffect(() => {
@@ -168,7 +169,7 @@ const MTABusApp = () => {
                     <Card>
                         <CardContent>
                             <Typography variant="h6">Stops</Typography>
-                            {stops.length > 0 ? (
+                            {stops.length > 0 && selectedBus.status !== 'Inactive' && selectedBus.status !== 'Maintenance' ? (
                                 <List>
                                     {stops.map((stop) => (
                                         <Grow
