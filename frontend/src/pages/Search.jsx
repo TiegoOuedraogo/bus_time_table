@@ -11,10 +11,6 @@ import { Grow } from "@mui/material";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import Slide from '@mui/material/Slide';
-import Button from '@mui/material/Button';
-import { Link } from "react-router-dom";
-
-
 
 const MTABusApp = () => {
     const [buses, setBuses] = useState([]);
@@ -23,6 +19,34 @@ const MTABusApp = () => {
     const [selectedStop, setSelectedStop] = useState(null);
     const [nextBusArrivals, setNextBusArrivals] = useState([]);
     const swal = withReactContent(Swal);
+
+    const formatTime = (timeString) => {
+        // Assumes timeString is in "HH:MM:SS" format, converting to 12-hour format
+        const [hours, minutes] = timeString.split(':');
+        const date = new Date();
+        date.setHours(parseInt(hours, 10));
+        date.setMinutes(parseInt(minutes, 10));
+        return date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
+    };
+
+    const calculateMinutesRemaining = (arrivalTime) => {
+        const now = new Date();
+        const arrivalDate = new Date();
+        const [hours, minutes] = arrivalTime.split(':');
+        arrivalDate.setHours(parseInt(hours, 10));
+        arrivalDate.setMinutes(parseInt(minutes, 10));
+        arrivalDate.setSeconds(0);
+
+        let diffMs = arrivalDate - now;
+
+        // If arrival time is earlier than now, it means it is for the next day
+        if (diffMs < 0) {
+            arrivalDate.setDate(arrivalDate.getDate() + 1);
+            diffMs = arrivalDate - now;
+        }
+
+        return Math.max(0, Math.round(diffMs / 60000)); // Convert milliseconds to minutes
+    };
 
     useEffect(() => {
         fetch('http://localhost:8080/api/buses')
@@ -191,8 +215,8 @@ const MTABusApp = () => {
                                             >
                                                 <ListItem component="div">
                                                     <ListItemText
-                                                        primary={`${arrival.busNumber} arriving in ${index + 1} ${index === 0 ? 'minute' : 'minutes'}`}
-                                                        secondary={arrival.arrivalTime}
+                                                        primary={`Bus ${arrival.busNumber} arriving at ${formatTime(arrival.arrivalTime)}`}
+                                                        secondary={`(${calculateMinutesRemaining(arrival.arrivalTime)} min remaining)`}
                                                     />
                                                 </ListItem>
                                             </Slide>
